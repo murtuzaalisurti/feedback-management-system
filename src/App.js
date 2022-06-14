@@ -1,8 +1,10 @@
+import AdminRegister from "./components/AdminRegister";
+
 function App() {
   return (
-    <div className="App">
-      Hello
-    </div>
+    <main className="App">
+      <AdminRegister />
+    </main>
   );
 }
 
