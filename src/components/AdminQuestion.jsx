@@ -1,5 +1,6 @@
 import { useState } from "react";
 import React from "react";
+import '../styles/AdminQuestion.css'
 
 function AdminQuestion() {
 
@@ -11,6 +12,9 @@ function AdminQuestion() {
     }]);
 
     const [type, setType] = useState();
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState("");
+    const [success, setSuccess] = useState("");
 
     const QuesType = (event) => {
         setType(event.target.value);
@@ -26,8 +30,9 @@ function AdminQuestion() {
 
     const addQues = (index) => {
 
-        if (question[index].QuestionText === "Question") {
-            alert("Please Enter the required Fields");
+        if (question[index].QuestionText === "Question" || question[index].QuestionText === "") {
+            setErr(true);
+            setErrMsg("Please Fill All Required Fields");
         } else {
             console.log(question)
 
@@ -35,6 +40,8 @@ function AdminQuestion() {
             quest[index].QID = quest[index].QID + 1;
             quest[index].type = type
             setQuestion(quest);
+            setErr(false);
+            setSuccess("Successfully Added");
         }
     }
 
@@ -52,61 +59,68 @@ function AdminQuestion() {
 
     return (
         <>
-            {question.map((element, index) => {
-                return (
-                    <>
-                        <div className='container' key={index}>
-                            <div className='question'>
-                                <textarea value={element.QuestionText} rows="3" cols="50" onChange={(e) => { quesText(e.target.value, index) }} />
+            <section className="error">
+                <p className={err ? "errorMsg" : "successMsg"}>{err ? errMsg : success}
+                </p>
+            </section>
+            <section className="questionArea">
+                <h2>Add Question</h2>
+                {question.map((element, index) => {
+                    return (
+                        <>
+                            <div className='container' key={index}>
+                                <div className='question'>
+                                    <textarea value={element.QuestionText} rows="3" cols="35" onChange={(e) => { quesText(e.target.value, index) }} />
+                                </div>
                             </div>
-                        </div>
 
-                        <label htmlFor='type'>Select Type of Question :</label>
-                        <select name='question' onChange={QuesType}>
-                            <option></option>
-                            <option value="Single Choice">Single Choice</option>
-                            <option value="Multiple Choice">Multiple Choice</option>
-                            <option value="Single Line">Single Line</option>
-                        </select>
+                            <div className="selectType">
+                                <label htmlFor='type'>Select Type of Question :</label>
+                                <select name='question' onChange={QuesType}>
+                                    <option></option>
+                                    <option value="Single Choice">Single Choice</option>
+                                    <option value="Multiple Choice">Multiple Choice</option>
+                                    <option value="Single Line">Single Line</option>
+                                </select>
+                            </div>
+                            {type == "Single Choice" ? <div className='App'>
+                                {element.option.map((options, indexs) => {
+                                    return (
+                                        <>
+                                            <div className='options'>
+                                                <input type="radio" value={element.option[indexs].OptionText} name={element.QID} />
+                                                <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
+                                            </div>
+                                        </>
+                                    )
+                                })}
+                            </div> : null}
 
-                        {type == "Single Choice" ? <div className='App'>
-                            {element.option.map((options, indexs) => {
-                                return (
-                                    <>
-                                        <div className='options'>
-                                            <input type="radio" value={element.option[indexs].OptionText} name={element.QID} />
-                                            <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
-                                        </div>
-                                    </>
-                                )
-                            })}
-                        </div> : null}
+                            {type == "Multiple Choice" ? <div className='App'>
+                                {element.option.map((options, indexs) => {
+                                    return (
+                                        <>
+                                            <div className='options'>
+                                                <input type="checkbox" value={element.option[indexs].OptionText} name={element.QID} />
+                                                <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
+                                            </div>
+                                        </>
+                                    )
+                                })}
+                            </div> : null}
 
-                        {type == "Multiple Choice" ? <div className='App'>
-                            {element.option.map((options, indexs) => {
-                                return (
-                                    <>
-                                        <div className='options'>
-                                            <input type="checkbox" value={element.option[indexs].OptionText} name={element.QID} />
-                                            <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
-                                        </div>
-                                    </>
-                                )
-                            })}
-                        </div> : null}
+                            <div className='addOption'>
+                                <button onClick={() => { addOption(index) }}>Add Option</button>
+                            </div>
 
-                        <div className='addOption'>
-                            <button onClick={() => { addOption(index) }}>Add Option</button>
-                        </div>
+                            {question.length - 1 === index ? <div className='addQuestion'>
+                                <button onClick={() => { addQues(index) }}>Add Question</button>
+                            </div> : null}
+                        </>
+                    )
+                })}
 
-                        {question.length - 1 === index ? <div className='addQuestion'>
-                            <button onClick={() => { addQues(index) }}>Add Question</button>
-                        </div> : null}
-                    </>
-                )
-            })}
-
-
+            </section>
         </>
     )
 }
