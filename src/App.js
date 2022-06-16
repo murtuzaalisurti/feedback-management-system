@@ -1,9 +1,16 @@
-import AdminRegister from "./components/AdminRegister";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AdminRegister from "./pages/AdminRegister";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <main className="App">
-      <AdminRegister />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/registerAdmin" element={<AdminRegister />} />
+        </Routes>
+      </BrowserRouter>
     </main>
   );
 }
