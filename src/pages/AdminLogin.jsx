@@ -50,6 +50,7 @@ const AdminLogin = () => {
             setUser('');
             setPwd('');
             setSuccess(true);
+            console.log(success)
             navigate(from, { replace: true })
         } catch (err) {
             console.log(err)
@@ -99,7 +100,7 @@ const AdminLogin = () => {
                     Need an Account?<br />
                     <span className="line">
                         {/*put router link here*/}
-                        <a href="/registerAdmin">Sign Up</a>
+                        <Link to="/registerAdmin">Sign Up</Link>
                     </span>
                 </p>
             </section>
