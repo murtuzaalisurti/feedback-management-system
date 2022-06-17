@@ -1,4 +1,3 @@
-import AdminRegister from "./components/AdminRegister";
 import AdminQuestion from "./components/AdminQuestion";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminRegister from "./pages/AdminRegister";
