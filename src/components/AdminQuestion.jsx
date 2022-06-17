@@ -38,7 +38,8 @@ function AdminQuestion() {
 
             var quest = [...question];
             quest[index].QID = quest[index].QID + 1;
-            quest[index].type = type
+            quest[index].type = type;
+            quest[index].QuestionText = "Question"
             setQuestion(quest);
             setErr(false);
             setSuccess("Successfully Added");
@@ -83,7 +84,7 @@ function AdminQuestion() {
                                     <option value="Single Line">Single Line</option>
                                 </select>
                             </div>
-                            {type == "Single Choice" ? <div className='App'>
+                            {type === "Single Choice" ? <div className='App'>
                                 {element.option.map((options, indexs) => {
                                     return (
                                         <>
@@ -91,12 +92,15 @@ function AdminQuestion() {
                                                 <input type="radio" value={element.option[indexs].OptionText} name={element.QID} />
                                                 <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
                                             </div>
+                                            {element.option.length - 1 === indexs ? <div className='addOption'>
+                                                <button onClick={() => { addOption(index) }}>Add Option</button>
+                                            </div> : null}
                                         </>
                                     )
                                 })}
                             </div> : null}
 
-                            {type == "Multiple Choice" ? <div className='App'>
+                            {type === "Multiple Choice" ? <div className='App'>
                                 {element.option.map((options, indexs) => {
                                     return (
                                         <>
@@ -104,14 +108,25 @@ function AdminQuestion() {
                                                 <input type="checkbox" value={element.option[indexs].OptionText} name={element.QID} />
                                                 <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
                                             </div>
+                                            {element.option.length - 1 === indexs ? <div className='addOption'>
+                                                <button onClick={() => { addOption(index) }}>Add Option</button>
+                                            </div> : null}
                                         </>
                                     )
                                 })}
                             </div> : null}
 
-                            <div className='addOption'>
-                                <button onClick={() => { addOption(index) }}>Add Option</button>
-                            </div>
+                            {type === "Single Line" ? <div className='App'>
+                                {element.option.map((options, indexs) => {
+                                    return (
+                                        <>
+                                            <div className='options' key={indexs}>
+                                                <input type="text" value={element.option[indexs].OptionText} name={element.QID} />
+                                            </div>
+                                        </>
+                                    )
+                                })}
+                            </div> : null}
 
                             {question.length - 1 === index ? <div className='addQuestion'>
                                 <button onClick={() => { addQues(index) }}>Add Question</button>
