@@ -175,7 +175,7 @@ const AdminRegister = () => {
                         Already registered?<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="/loginAdmin">Sign In</a>
+                            <Link to="/loginAdmin">Sign In</Link>
                         </span>
                     </p>
                 </section>

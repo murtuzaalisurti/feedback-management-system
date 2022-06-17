@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect, useContext } from 'react'
-import AuthContext from "../context/AuthProvider";
+import React, { useState, useRef, useEffect } from 'react'
+import useAuth from '../hooks/useAuth';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../styles/auth.css'
 
 import axios from '../api/axios';
@@ -7,7 +8,12 @@ const LOGIN_URL = '/auth';
 
 const AdminLogin = () => {
 
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
     const userRef = useRef();
     const errRef = useRef();
 
@@ -44,6 +50,8 @@ const AdminLogin = () => {
             setUser('');
             setPwd('');
             setSuccess(true);
+            console.log(success)
+            navigate(from, { replace: true })
         } catch (err) {
             console.log(err)
             if (!err?.response) {
@@ -62,49 +70,40 @@ const AdminLogin = () => {
 
     return (
         <>
-            {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br />
-                    <p>
-                        <a href="/">Go to Home</a>
-                    </p>
-                </section>
-            ) : (
-                <section>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Sign In</h1>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
-                            required
-                        />
 
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                        />
-                        <button>Sign In</button>
-                    </form>
-                    <p>
-                        Need an Account?<br />
-                        <span className="line">
-                            {/*put router link here*/}
-                            <a href="/registerAdmin">Sign Up</a>
-                        </span>
-                    </p>
-                </section>
-            )}
+            <section>
+                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <h1>Sign In</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                    />
+
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                    />
+                    <button>Sign In</button>
+                </form>
+                <p>
+                    Need an Account?<br />
+                    <span className="line">
+                        {/*put router link here*/}
+                        <Link to="/registerAdmin">Sign Up</Link>
+                    </span>
+                </p>
+            </section>
         </>
     )
 }
