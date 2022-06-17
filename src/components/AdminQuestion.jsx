@@ -67,8 +67,8 @@ function AdminQuestion() {
                 <h2>Add Question</h2>
                 {question.map((element, index) => {
                     return (
-                        <>
-                            <div className='container' key={index}>
+                        <div key={index}>
+                            <div className='container'>
                                 <div className='question'>
                                     <textarea value={element.QuestionText} rows="3" cols="35" onChange={(e) => { quesText(e.target.value, index) }} />
                                 </div>
@@ -100,7 +100,7 @@ function AdminQuestion() {
                                 {element.option.map((options, indexs) => {
                                     return (
                                         <>
-                                            <div className='options'>
+                                            <div className='options' key={indexs}>
                                                 <input type="checkbox" value={element.option[indexs].OptionText} name={element.QID} />
                                                 <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
                                             </div>
@@ -116,7 +116,7 @@ function AdminQuestion() {
                             {question.length - 1 === index ? <div className='addQuestion'>
                                 <button onClick={() => { addQues(index) }}>Add Question</button>
                             </div> : null}
-                        </>
+                        </div>
                     )
                 })}
 
