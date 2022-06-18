@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import '../styles/AdminQuestion.css'
+import Users from './Users';
 
 function AdminQuestion() {
 
@@ -60,6 +61,7 @@ function AdminQuestion() {
 
     return (
         <>
+            <Users />
             <section className="error">
                 <p className={err ? "errorMsg" : "successMsg"}>{err ? errMsg : success}
                 </p>

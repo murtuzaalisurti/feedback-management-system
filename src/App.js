@@ -1,6 +1,7 @@
 import AdminQuestion from "./components/AdminQuestion";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
+import PersistLogin from "./components/PersistLogin";
 import AdminRegister from "./pages/AdminRegister";
 import AdminLogin from "./pages/AdminLogin";
 import Home from "./pages/Home";
@@ -17,9 +18,11 @@ function App() {
           <Route path="/loginAdmin" element={<AdminLogin />} />
 
           {/* protected routes */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/newForm" element={<AdminQuestion />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/newForm" element={<AdminQuestion />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
