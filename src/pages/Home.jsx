@@ -1,13 +1,15 @@
 import React, { useContext } from 'react'
 import AuthContext from "../context/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
+import useLogout from '../hooks/useLogout';
 
 const Home = () => {
-  const { setAuth } = useContext(AuthContext);
+  // const { setAuth } = useContext(AuthContext);
+  const logout = useLogout()
   const navigate = useNavigate();
 
-  const logout = async () => {
-    setAuth({});
+  const signOut = async () => {
+    await logout();
     navigate('/loginAdmin');
   }
 
@@ -15,7 +17,7 @@ const Home = () => {
     <>    
       <div>Home</div>
       <Link to="/newForm">Create a new form</Link>
-      <button onClick={logout}>Sign Out</button>
+      <button onClick={signOut}>Sign Out</button>
     </>
   )
 }

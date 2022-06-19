@@ -6,9 +6,11 @@ const RequireAuth = ({ allowedRoles }) => {
     const location = useLocation();
 
     return (
-        auth?.user 
+        auth?.roles?.find(role => allowedRoles?.includes(role))
             ? <Outlet />
-            : <Navigate to="/loginAdmin" state={{ from: location }} replace />
+            : auth?.accessToken //changed from user to accessToken to persist login after refresh
+                ? <Navigate to="/unauthorized" state={{ from: location }} replace />
+                : <Navigate to="/loginAdmin" state={{ from: location }} replace />
     );
 }
 

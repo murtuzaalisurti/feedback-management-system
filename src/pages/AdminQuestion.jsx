@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import '../styles/AdminQuestion.css'
-import Users from './Users';
+import Users from '../components/Users';
 
 function AdminQuestion() {
 

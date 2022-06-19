@@ -1,4 +1,4 @@
-import AdminQuestion from "./components/AdminQuestion";
+import AdminQuestion from "./pages/AdminQuestion";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";

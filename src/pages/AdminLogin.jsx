@@ -8,7 +8,7 @@ const LOGIN_URL = '/auth';
 
 const AdminLogin = () => {
 
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -67,6 +67,14 @@ const AdminLogin = () => {
         }
     }
 
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
+    useEffect(() => {
+        localStorage.setItem("persist", persist);
+    }, [persist])
+
 
     return (
         <>
@@ -95,6 +103,15 @@ const AdminLogin = () => {
                         required
                     />
                     <button>Sign In</button>
+                    <div className="persistCheck">
+                        <input
+                            type="checkbox"
+                            id="persist"
+                            onChange={togglePersist}
+                            checked={persist}
+                        />
+                        <label htmlFor="persist">Trust This Device</label>
+                    </div>
                 </form>
                 <p>
                     Need an Account?<br />
