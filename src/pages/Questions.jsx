@@ -1,8 +1,31 @@
 import { useState } from "react";
 import React from "react";
-import '../styles/AdminQuestion.css'
+import '../styles/questions.css'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from "../contexts/AuthContext";
 
-function AdminQuestion() {
+
+function Questions() {
+
+    const [type, setType] = useState();
+    const [err, setErr] = useState(false);
+    const [errMsg, setErrMsg] = useState("");
+    const [success, setSuccess] = useState("");
+
+    const navigate = useNavigate()
+    const { logout } = useAuth()
+
+    async function handleLogout() {
+        setErrMsg("")
+
+        try {
+            await logout()
+            navigate("/loginAdmin")
+        } catch (e) {
+            console.error(e)
+            setErrMsg("Failed to log out")
+        }
+    }
 
     const [question, setQuestion] = useState([{
         QuestionText: "Question",
@@ -11,10 +34,6 @@ function AdminQuestion() {
         option: [{ OptionText: "Option 1" }]
     }]);
 
-    const [type, setType] = useState();
-    const [err, setErr] = useState(false);
-    const [errMsg, setErrMsg] = useState("");
-    const [success, setSuccess] = useState("");
 
     const QuesType = (event) => {
         setType(event.target.value);
@@ -60,6 +79,7 @@ function AdminQuestion() {
 
     return (
         <>
+            <button onClick={handleLogout}>Logout</button>
             <section className="error">
                 <p className={err ? "errorMsg" : "successMsg"}>{err ? errMsg : success}
                 </p>
@@ -140,4 +160,4 @@ function AdminQuestion() {
     )
 }
 
-export default AdminQuestion
+export default Questions

@@ -1,29 +1,24 @@
-import AdminQuestion from "./components/AdminQuestion";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RequireAuth from "./components/RequireAuth";
-import AdminRegister from "./pages/AdminRegister";
-import AdminLogin from "./pages/AdminLogin";
+import RegisterAdmin from "./pages/RegisterAdmin";
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import Home from "./pages/Home";
+import LoginAdmin from "./pages/LoginAdmin";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Questions from "./pages/Questions";
 
 function App() {
-  const ROLES = {
-    'ADMIN': 5150
-  }
   return (
-    <main className="App">
+    <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/registerAdmin" element={<AdminRegister />} />
-          <Route path="/loginAdmin" element={<AdminLogin />} />
-
-          {/* protected routes */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
+          <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
-            <Route path="/newForm" element={<AdminQuestion />} />
+            <Route path="/newform" element={<Questions />} />
           </Route>
+          <Route path="/registerAdmin" element={<RegisterAdmin />} />
+          <Route path="/loginAdmin" element={<LoginAdmin />} />
         </Routes>
       </BrowserRouter>
-    </main>
+    </div>
   );
 }
 

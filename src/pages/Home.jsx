@@ -1,23 +1,33 @@
-import React, { useContext } from 'react'
-import AuthContext from "../context/AuthProvider";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 const Home = () => {
-  const { setAuth } = useContext(AuthContext);
-  const navigate = useNavigate();
 
-  const logout = async () => {
-    setAuth({});
-    navigate('/loginAdmin');
-  }
+    const [error, setError] = useState()
+    const navigate = useNavigate()
+    const { currentUser, logout } = useAuth()
 
-  return (
-    <>    
-      <div>Home</div>
-      <Link to="/newForm">Create a new form</Link>
-      <button onClick={logout}>Sign Out</button>
-    </>
-  )
+    async function handleLogout() {
+        setError("")
+
+        try {
+            await logout()
+            navigate("/loginAdmin")
+        } catch (e) {
+            console.error(e)
+            setError("Failed to log out")
+        }
+    }
+    
+    return (
+        <>
+            <p className={"errmsg"} aria-live="assertive">{error}</p>
+            <div>Home</div>
+            {currentUser && currentUser.email}
+            <button onClick={handleLogout}>Logout</button>
+        </>
+    )
 }
 
 export default Home
