@@ -13,7 +13,7 @@ const LoginAdmin = () => {
 
     useEffect(() => {
         if(currentUser) {
-            navigate('/')
+            navigate('/dashboard')
         }
     }, [])
 
@@ -24,7 +24,7 @@ const LoginAdmin = () => {
             setError("")
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
-            navigate("/")
+            navigate("/dashboard")
         } catch(e) {
             console.log(e)
             setError("Failed to sign in")

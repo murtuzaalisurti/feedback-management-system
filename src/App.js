@@ -1,9 +1,13 @@
-import RegisterAdmin from "./pages/RegisterAdmin";
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import Home from "./pages/Home";
-import LoginAdmin from "./pages/LoginAdmin";
 import ProtectedRoute from "./components/ProtectedRoute";
+
+//pages
+import RegisterAdmin from "./pages/RegisterAdmin";
+import Dashboard from "./pages/Dashboard";
+import LoginAdmin from "./pages/LoginAdmin";
 import Questions from "./pages/Questions";
+import Home from "./pages/Home";
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -11,11 +15,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/newform" element={<Questions />} />
           </Route>
           <Route path="/registerAdmin" element={<RegisterAdmin />} />
           <Route path="/loginAdmin" element={<LoginAdmin />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

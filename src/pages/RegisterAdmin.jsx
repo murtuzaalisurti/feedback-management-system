@@ -14,7 +14,7 @@ const RegisterAdmin = () => {
 
     useEffect(() => {
         if(currentUser) {
-            navigate('/')
+            navigate('/dashboard')
         }
     }, [])
 

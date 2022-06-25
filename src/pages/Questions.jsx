@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import '../styles/questions.css'
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +11,8 @@ function Questions() {
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState("");
+
+    const [formId, setFormId] = useState("");
 
     const navigate = useNavigate()
     const { logout } = useAuth()
@@ -26,6 +28,13 @@ function Questions() {
             setErrMsg("Failed to log out")
         }
     }
+
+    useEffect(() => {
+        let url_string = window.location.href;
+        let url = new URL(url_string);
+        let formId = url.searchParams.get("id");
+        setFormId(formId)
+    }, [])
 
     const [question, setQuestion] = useState([{
         QuestionText: "Question",
