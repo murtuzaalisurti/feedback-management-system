@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import '../styles/dashboard.css'
 
 const Dashboard = () => {
 
@@ -64,7 +65,7 @@ const Dashboard = () => {
             <h1>Forms</h1>
             {forms ? forms.map((form, index) => {
                 return (
-                    <div key={index}>
+                    <div className='formCard' onClick={() => navigate(`/dashboard/form/${form._id}`)} key={index}>
                         <p>{form.title}</p>
                         <p>{form.desc}</p>
                     </div>

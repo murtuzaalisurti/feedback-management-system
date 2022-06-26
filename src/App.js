@@ -8,6 +8,7 @@ import LoginAdmin from "./pages/LoginAdmin";
 import Questions from "./pages/Questions";
 import Home from "./pages/Home";
 import NotFound from './pages/NotFound';
+import Form from './pages/Form';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/form/:id" element={<Form />} />
             <Route path="/newform" element={<Questions />} />
           </Route>
           <Route path="/registerAdmin" element={<RegisterAdmin />} />
