@@ -12,10 +12,21 @@ function Questions() {
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState("");
 
+    const [formName, setFormName] = useState("");
+    const [formDesc, setFormDesc] = useState("");
+
     const [formId, setFormId] = useState("");
 
     const navigate = useNavigate()
     const { logout } = useAuth()
+
+    const setName = (event) => {
+        setFormName(event.target.value)
+    }
+
+    const setDesc = (event) => {
+        setFormDesc(event.target.value)
+    }
 
     async function handleLogout() {
         setErrMsg("")
@@ -67,7 +78,8 @@ function Questions() {
             var quest = [...question];
             quest[index].QID = quest[index].QID + 1;
             quest[index].type = type;
-            quest[index].QuestionText = "Question"
+            quest[index].QuestionText = " "
+            quest[index].option.length = 1
             setQuestion(quest);
             setErr(false);
             setSuccess("Successfully Added");
@@ -94,6 +106,11 @@ function Questions() {
                 </p>
             </section>
             <section className="questionArea">
+                <label htmlFor="formName">Form Name : </label> <br />
+                <input type="text" value={formName} onChange={setName} /><br /><br />
+
+                <label htmlFor="formDesc">Form Description : </label><br />
+                <input type="text" value={formDesc} onChange={setDesc} /><br />
                 <h2>Add Question</h2>
                 {question.map((element, index) => {
                     return (
@@ -147,6 +164,7 @@ function Questions() {
 
                             {type === "Single Line" ? <div className='App'>
                                 {element.option.map((options, indexs) => {
+                                    { element.option.length = 1 }
                                     return (
                                         <>
                                             <div className='options' key={indexs}>
