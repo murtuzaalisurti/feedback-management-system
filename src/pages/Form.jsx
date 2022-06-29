@@ -44,13 +44,30 @@ const Form = () => {
                         </h2>
                         <div className="questions">{
                             formData.questions.length >= 1 ? (
-                                formData.questions.map((question) => {
-                                    return JSON.stringify(question)
+                                formData.questions.map((question, index) => {
+                                    return (
+                                        <div key={index} className="question">
+                                            <div className='quesNumber'>Q:- {index+1}</div>
+                                            <div className="questionText">
+                                                {question.QuestionText}
+                                            </div>
+                                            <div className="inputs">
+                                                {question.Option.length > 0 ? (
+                                                    question.Option.map((option, index) => {
+                                                        return (question.type === 'multipleChoice') ? <label key={index}><input type='checkbox' value={option.OptionText} name={question._id} />{option.OptionText}<br /></label> : <label key={index}><input type='radio' value={option.OptionText} name={question._id} />{option.OptionText}<br /></label>
+                                                    })
+                                                ) : (
+                                                    question.type === 'text' && <input type='text' placeholder='Type your answer' />
+                                                )}
+                                            </div>
+                                        </div>
+                                    )
                                 })
                             ) : (
                                 <div>{'No questions'}</div>
                             )
                         }</div>
+                        <button>Delete form</button>
                     </div>
                 )
             }
