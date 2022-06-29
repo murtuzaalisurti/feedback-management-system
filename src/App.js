@@ -9,6 +9,7 @@ import Questions from "./pages/Questions";
 import Home from "./pages/Home";
 import NotFound from './pages/NotFound';
 import Form from './pages/Form';
+import ClientForm from './pages/ClientForm';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/dashboard/form/:id" element={<Form />} />
             <Route path="/newform" element={<Questions />} />
           </Route>
+          <Route path='/form/:id' element={<ClientForm />} />
           <Route path="/registerAdmin" element={<RegisterAdmin />} />
           <Route path="/loginAdmin" element={<LoginAdmin />} />
           <Route path="/" element={<Home />} />
