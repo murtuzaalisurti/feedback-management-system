@@ -12,21 +12,10 @@ function Questions() {
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState("");
 
-    const [formName, setFormName] = useState("");
-    const [formDesc, setFormDesc] = useState("");
-
     const [formId, setFormId] = useState("");
 
     const navigate = useNavigate()
     const { logout } = useAuth()
-
-    const setName = (event) => {
-        setFormName(event.target.value)
-    }
-
-    const setDesc = (event) => {
-        setFormDesc(event.target.value)
-    }
 
     async function handleLogout() {
         setErrMsg("")
@@ -106,11 +95,6 @@ function Questions() {
                 </p>
             </section>
             <section className="questionArea">
-                <label htmlFor="formName">Form Name : </label> <br />
-                <input type="text" value={formName} onChange={setName} /><br /><br />
-
-                <label htmlFor="formDesc">Form Description : </label><br />
-                <input type="text" value={formDesc} onChange={setDesc} /><br />
                 <h2>Add Question</h2>
                 {question.map((element, index) => {
                     return (
