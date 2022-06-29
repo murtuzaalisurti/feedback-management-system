@@ -11,6 +11,20 @@ const Dashboard = () => {
 
     const [forms, setForms] = useState()
 
+    const [newForm, setNewForm] = useState({
+        formName: '',
+        formDesc: ''
+    });
+    
+    const handleNewFormDetails = (e) => {
+        setNewForm((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+
     async function handleLogout() {
         setError("")
 
@@ -30,8 +44,8 @@ const Dashboard = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: 'form10',
-                desc: 'form10 desc'
+                title: newForm.formName,
+                desc: newForm.formDesc
             })
         }).then((res) => {
             return res.json()
@@ -59,7 +73,11 @@ const Dashboard = () => {
             <p className={"errmsg"} aria-live="assertive">{error}</p>
             <div>Dashboard</div>
             {currentUser && <p>Email: {currentUser.email}</p>}
-            <button onClick={handleNewForm}>Create a new form</button>
+            <label htmlFor='newFormName'>Form Name</label>
+            <input type="text" className='newFormName' id='newFormName' value={newForm.formName} name='formName' onChange={(e) => handleNewFormDetails(e)} />
+            <label htmlFor="newFormDesc">Form Desc</label>
+            <input type="text" id='newFormDesc' className='newFormDesc' value={newForm.formDesc} name='formDesc' onChange={(e) => handleNewFormDetails(e)} />
+            <button onClick={handleNewForm} disabled={(newForm.formName !== '' && newForm.formDesc !== '') ? false : true}>Create a new form</button>
             <button onClick={handleLogout}>Logout</button>
 
             <h1>Forms</h1>
