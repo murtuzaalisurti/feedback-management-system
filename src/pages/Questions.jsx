@@ -80,16 +80,16 @@ function Questions() {
         setQuestion(changeQuesText);
     }
 
-    const optionText = (text, index, indexs) => {
+    const optionText = (text, index) => {
         var optionsOfQuestion = [...question];
-        optionsOfQuestion[index].option[indexs].OptionText = text;
+        optionsOfQuestion[index].option.OptionText = text;
         setQuestion(optionsOfQuestion);
     }
 
-    const setUserResponse = (text, index, indexs) => {
-        var userResponse = [...question];
-        userResponse[index].option[indexs].OptionText = text;
-        setQuestion(userResponse);
+    const setUserResponse = (text, index) => {
+
+        console.log("Hello");
+
     }
 
     return (
@@ -156,7 +156,7 @@ function Questions() {
                                 {delete element.option}
 
                                 <div className='options'>
-                                    <input type="text" placeholder="Enter Your Response" onChange={(e) => { setUserResponse(e.target.value, index, indexs) }} />
+                                    <input type="text" placeholder="Enter Your Response" onChange={(e) => { setUserResponse(e.target.value, index) }} />
                                 </div>
 
 
