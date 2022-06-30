@@ -46,7 +46,7 @@ const ClientForm = () => {
                                 formData.questions.map((question, index) => {
                                     return (
                                         <div key={index} className="question">
-                                            <div className='quesNumber'>Q:- {index+1}</div>
+                                            <div className='quesNumber'>Q:- {index + 1}</div>
                                             <div className="questionText">
                                                 {question.QuestionText}
                                             </div>
