@@ -65,7 +65,7 @@ function Questions() {
             console.log(question)
 
             var quest = [...question];
-            
+
             quest[index].option.length = 1
             setQuestion(quest);
 
@@ -152,16 +152,14 @@ function Questions() {
                             </div> : null}
 
                             {element.type === "text" ? <div className='App'>
-                                {element.option.map((options, indexs) => {
-                                    { element.option.length = 1 }
-                                    return (
-                                        <>
-                                            <div className='options' key={indexs}>
-                                            <input type="text" value={element.option.OptionText}  placeholder="Enter Your Response" onChange={(e)=>{setUserResponse(e.target.value, index, indexs)}}/>
-                                            </div>
-                                        </>
-                                    )
-                                })}
+
+                                {delete element.option}
+
+                                <div className='options'>
+                                    <input type="text" placeholder="Enter Your Response" onChange={(e) => { setUserResponse(e.target.value, index, indexs) }} />
+                                </div>
+
+
                             </div> : null}
 
                             {question.length - 1 === index ? <div className='addQuestion'>
