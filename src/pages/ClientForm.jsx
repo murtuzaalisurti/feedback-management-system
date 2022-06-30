@@ -29,11 +29,53 @@ const ClientForm = () => {
         formData !== undefined ? setLoading(false) : setLoading(true)
     }, [formData])
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        const responses = []
+
+        function pushResponses(typeValue, textValue, qid) {
+            responses.push({
+                qID: qid,
+                resText: textValue,
+                resType: typeValue
+            })
+        }
+        
+        document.querySelectorAll(`.${e.target.className} .questions .question .inputs`).forEach((field) => {
+            const questionID = field.dataset.qid;
+            document.querySelectorAll(`.input-${questionID} input`).forEach((input) => {
+                if(input.type === 'text') {
+                    pushResponses(input.type, input.value, questionID)
+                } else if(input.type === 'checkbox') {
+                    if(input.checked === true) {
+                        pushResponses(input.type, input.value, questionID)
+                    }
+                } else if(input.type === 'radio') {
+                    if(input.checked === true) {
+                        pushResponses(input.type, input.value, questionID)
+                    }
+                }
+            })
+        })
+        console.log(responses)
+
+        fetch(`http://localhost:5000/addResponse`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                formId: id,
+                responses: responses
+            })
+        })
+    }
+
     return (
         <>
             {
                 loading ? 'loading' : (
-                    <form className='formdata'>
+                    <form className='formdata' onSubmit={(e) => handleSubmit(e)}>
                         <div>{`Form #${formData._id}`}</div>
                         <h1 className="formTitle">
                             {formData.title}
@@ -50,13 +92,13 @@ const ClientForm = () => {
                                             <div className="questionText">
                                                 {question.QuestionText}
                                             </div>
-                                            <div className="inputs">
+                                            <div className={`inputs input-${question._id}`} data-qid={question._id}>
                                                 {question.Option.length > 0 ? (
                                                     question.Option.map((option, index) => {
                                                         return (question.type === 'multipleChoice') ? <label key={index}><input type='checkbox' value={option.OptionText} name={question._id} />{option.OptionText}<br /></label> : <label key={index}><input type='radio' value={option.OptionText} name={question._id} />{option.OptionText}<br /></label>
                                                     })
                                                 ) : (
-                                                    question.type === 'text' && <input type='text' placeholder='Type your answer' />
+                                                    question.type === 'text' && <input type='text' name={question._id} placeholder='Type your answer' />
                                                 )}
                                             </div>
                                         </div>
