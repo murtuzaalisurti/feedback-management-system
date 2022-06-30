@@ -62,13 +62,16 @@ function Questions() {
             setErr(true);
             setErrMsg("Please Fill All Required Fields");
         } else {
-            console.log(question)
-
-            var quest = [...question];
-
-            quest[index].option.length = 1
-            setQuestion(quest);
-
+            fetch(`http://localhost:5000/addQues`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    formId: formId,
+                    question: question[0]
+                })
+            })
             setErr(false);
             setSuccess("Successfully Added");
         }
