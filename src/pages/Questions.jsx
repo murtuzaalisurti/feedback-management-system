@@ -123,6 +123,10 @@ function Questions() {
                                 </select>
                             </div>
                             {element.type === "singleChoice" ? <div className='App'>
+                                {element.hasOwnProperty('option') ?
+                                    console.log("Already Excisting")
+                                    : element.option = [{ OptionText: "Option 1" }]
+                                }
                                 {element.option.map((options, indexs) => {
                                     return (
                                         <>
@@ -139,6 +143,10 @@ function Questions() {
                             </div> : null}
 
                             {element.type === "multipleChoice" ? <div className='App'>
+                                {element.hasOwnProperty('option') ?
+                                    console.log("Already Excisting")
+                                    : element.option = [{ OptionText: "Option 1" }]
+                                }
                                 {element.option.map((options, indexs) => {
                                     return (
                                         <>
