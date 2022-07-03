@@ -59,7 +59,7 @@ const Responses = () => {
                                                         <div className="inputs response" key={index}>
                                                             {question.Option.length > 0 ? (
                                                                 question.Option.map((option, index) => {
-                                                                    return (question.type === 'multipleChoice') ? <label key={index}><input type='checkbox' checked={option.OptionText === response.resText ? true: false} value={option.OptionText} name={question._id} />{option.OptionText}<br /></label> : <label key={index}><input type='radio' checked={response.resText === option.OptionText} value={option.OptionText} name={question._id} />{option.OptionText}<br /></label>
+                                                                    return (question.type === 'multipleChoice') ? <label key={index}><input type='checkbox' checked={option.OptionText === response.resText ? true: false} value={option.OptionText} name={question._id} disabled={true} />{option.OptionText}<br /></label> : <label key={index}><input type='radio' checked={response.resText === option.OptionText} disabled={true} value={option.OptionText} name={question._id} />{option.OptionText}<br /></label>
                                                                 })
                                                             ) : (
                                                                 question.type === 'text' && <input type='text' value={response.resText} disabled={true} />
