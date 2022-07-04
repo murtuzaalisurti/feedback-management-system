@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../styles/form.css'
+const { nanoid } = require('nanoid')
 
 const ClientForm = () => {
 
     const { id } = useParams()
     const [formData, setFormData] = useState()
     const [loading, setLoading] = useState(true)
+    const [submitted, setSubmitted] = useState(false)
 
     useEffect(() => {
         fetch('http://localhost:5000/getForm', {
@@ -36,6 +38,7 @@ const ClientForm = () => {
         function pushResponses(typeValue, textValue, qid) {
             responses.push({
                 qID: qid,
+                resId: nanoid(14),
                 resText: textValue,
                 resType: typeValue
             })
@@ -43,16 +46,21 @@ const ClientForm = () => {
         
         document.querySelectorAll(`.${e.target.className} .questions .question .inputs`).forEach((field) => {
             const questionID = field.dataset.qid;
-            document.querySelectorAll(`.input-${questionID} input`).forEach((input) => {
+            const checkboxTexts = []
+            document.querySelectorAll(`.input-${questionID} input`).forEach((input, index) => {
                 if(input.type === 'text') {
-                    pushResponses(input.type, input.value, questionID)
+                    pushResponses(input.type, [input.value], questionID)
                 } else if(input.type === 'checkbox') {
                     if(input.checked === true) {
-                        pushResponses(input.type, input.value, questionID)
+                        checkboxTexts.push(input.value)
                     }
+                    if(index === (document.querySelectorAll(`.input-${questionID} input`).length - 1)) {
+                        pushResponses(input.type, checkboxTexts, questionID)
+                    }
+                    
                 } else if(input.type === 'radio') {
                     if(input.checked === true) {
-                        pushResponses(input.type, input.value, questionID)
+                        pushResponses(input.type, [input.value], questionID)
                     }
                 }
             })
@@ -68,15 +76,22 @@ const ClientForm = () => {
                 formId: id,
                 responses: responses
             })
+        }).then((res) => {
+            return res.json()
+        }).then((data) => {
+            console.log(data)
+            setSubmitted(true)
+        }).catch((err) => {
+            console.log(err)
         })
     }
 
     return (
         <>
             {
-                loading ? 'loading' : (
+                !submitted ?
+                (loading ? 'loading' : (
                     <form className='formdata' onSubmit={(e) => handleSubmit(e)}>
-                        <div>{`Form #${formData._id}`}</div>
                         <h1 className="formTitle">
                             {formData.title}
                         </h1>
@@ -111,6 +126,8 @@ const ClientForm = () => {
                         <br />
                         <button>Submit</button>
                     </form>
+                )) : (
+                    <h3>Your form has benn successfully submitted! Thank You!</h3>
                 )
             }
         </>

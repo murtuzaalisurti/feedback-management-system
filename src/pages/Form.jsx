@@ -30,6 +30,22 @@ const Form = () => {
         formData !== undefined ? setLoading(false) : setLoading(true)
     }, [formData])
 
+    function deleteForm() {
+        fetch(`http://localhost:5000/removeForm`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                formId: id
+            })
+        }).then((res) => {
+            return res.json()
+        }).then((data) => {
+            console.log(data)
+        })
+    }
+
     return (
         <>
             {
@@ -69,7 +85,7 @@ const Form = () => {
                                     <div>{'No questions'}</div>
                                 )
                             }</div>
-                            <button>Delete form</button>
+                            <button onClick={() => deleteForm()}>Delete form</button>
                         </div>
                     </>
                 )

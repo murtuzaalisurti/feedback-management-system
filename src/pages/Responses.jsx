@@ -45,7 +45,7 @@ const Responses = () => {
                         <div className="questions">{
                             formData.questions.length >= 1 ? (
                                 formData.questions.map((question, index) => {
-                                    console.log(question.responses.length)
+                                    // console.log(question.responses)
                                     return question.responses.length >= 1 ? (
                                         <div key={index} className="question">
                                             <div className='quesNumber'>Q:- {index + 1}</div>
@@ -54,15 +54,32 @@ const Responses = () => {
                                             </div>
                                             <div className="responses">
                                             {
-                                                question.responses.map((response, index) => {
+                                                question.responses.map((response, resIndex) => {
                                                     return (
-                                                        <div className="inputs response" key={index}>
+                                                        <div className="inputs response" key={resIndex}>
                                                             {question.Option.length > 0 ? (
-                                                                question.Option.map((option, index) => {
-                                                                    return (question.type === 'multipleChoice') ? <label key={index}><input type='checkbox' checked={option.OptionText === response.resText ? true: false} value={option.OptionText} name={question._id} disabled={true} />{option.OptionText}<br /></label> : <label key={index}><input type='radio' checked={response.resText === option.OptionText} disabled={true} value={option.OptionText} name={question._id} />{option.OptionText}<br /></label>
+                                                                question.Option.map((option, optIndex) => {
+                                                                    if(question.type === 'multipleChoice') {
+                                                                        var check = false;
+                                                                        response.resText.forEach((res, index) => {
+                                                                            if(option.OptionText === res) {
+                                                                                check = true
+                                                                            }
+                                                                        })
+                                                                    }
+
+                                                                    return (question.type === 'multipleChoice') ? 
+                                                                    (   
+                                                                        <label key={optIndex}>
+                                                                            <input type='checkbox' checked={check} value={option.OptionText} name={question._id} disabled={true} />
+                                                                            {option.OptionText}<br />
+                                                                        </label>
+                                                                    ) : (
+                                                                        <label key={optIndex}><input type='radio' checked={response.resText[0] === option.OptionText} disabled={true} value={option.OptionText} name={response.resId} />{option.OptionText}<br /></label>
+                                                                    )
                                                                 })
                                                             ) : (
-                                                                question.type === 'text' && <input type='text' value={response.resText} disabled={true} />
+                                                                question.type === 'text' && <input type='text' value={response.resText[0]} disabled={true} />
                                                             )}
                                                         </div>
                                                     )
@@ -71,7 +88,7 @@ const Responses = () => {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div key={index}></div>
+                                        index === formData.questions.length - 1 ? <div key={index}>No responses</div> : <div key={index}></div>
                                     )
                                 })
                             ) : (
