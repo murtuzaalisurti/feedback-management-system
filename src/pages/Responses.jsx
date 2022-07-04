@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import '../styles/Responses.module.css'
+
 const Responses = () => {
 
     const { id } = useParams()

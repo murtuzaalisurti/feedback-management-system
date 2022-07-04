@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
+import '../styles/LoginAdmin.module.css'
+
 const LoginAdmin = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -35,7 +37,7 @@ const LoginAdmin = () => {
 
     return (
         <>
-            <section>
+            <section className='container'>
                 <p className={"errmsg"} aria-live="assertive">{error}</p>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>

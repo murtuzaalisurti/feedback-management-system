@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import '../styles/questions.css'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from "../contexts/AuthContext";
 
+import '../styles/Questions.module.css'
 
 function Questions() {
 
