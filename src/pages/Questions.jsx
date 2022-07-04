@@ -83,9 +83,9 @@ function Questions() {
         setQuestion(changeQuesText);
     }
 
-    const optionText = (text, index) => {
+    const optionText = (text, index, indexs) => {
         var optionsOfQuestion = [...question];
-        optionsOfQuestion[index].option.OptionText = text;
+        optionsOfQuestion[index].option[indexs].OptionText = text;
         setQuestion(optionsOfQuestion);
     }
 
