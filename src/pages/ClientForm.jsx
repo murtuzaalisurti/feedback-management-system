@@ -127,7 +127,7 @@ const ClientForm = () => {
                         <button>Submit</button>
                     </form>
                 )) : (
-                    <h3>Your form has benn successfully submitted! Thank You!</h3>
+                    <h3>Your form has been successfully submitted! Thank You!</h3>
                 )
             }
         </>

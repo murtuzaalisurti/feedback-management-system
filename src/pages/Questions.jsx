@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import '../styles/questions.css'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from "../contexts/AuthContext";
 
 
@@ -11,8 +11,7 @@ function Questions() {
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState("");
 
-    const { id } = useParams();
-    const [formId, setFormId] = useState(id);
+    const [formId, setFormId] = useState("");
 
     const navigate = useNavigate()
     const { logout } = useAuth()
@@ -28,6 +27,13 @@ function Questions() {
             setErrMsg("Failed to log out")
         }
     }
+
+    useEffect(() => {
+        let url_string = window.location.href;
+        let url = new URL(url_string);
+        let formId = url.searchParams.get("id");
+        setFormId(formId)
+    }, [])
 
     const [question, setQuestion] = useState([{
         QuestionText: "Question",
@@ -175,6 +181,7 @@ function Questions() {
                 })}
 
             </section>
+            <button onClick={() => {navigate(`/dashboard/form/${formId}`)}}>Go to Form</button>
         </>
     )
 }
