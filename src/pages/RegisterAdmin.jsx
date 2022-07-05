@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 
-import '../styles/RegisterAdmin.module.css'
+import styles from '../styles/RegisterAdmin.module.scss'
 
 const RegisterAdmin = () => {
     const emailRef = useRef()
@@ -42,7 +42,7 @@ const RegisterAdmin = () => {
 
     return (
         <>
-            <section className='container'>
+            <section className={styles.container}>
                 <p className={"errmsg"} aria-live="assertive">{error}</p>
                 <h1>Register</h1>
                 <form onSubmit={handleSubmit}>
@@ -76,9 +76,9 @@ const RegisterAdmin = () => {
 
                     <button disabled={loading}>Sign Up</button>
                 </form>
-                <p className='already-cta'>
+                <p className={styles['already-cta']}>
                     Already registered?
-                    <span className="line">
+                    <span className={styles.line}>
                         <Link to="/loginAdmin">Sign In</Link>
                     </span>
                 </p>

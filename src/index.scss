@@ -18,8 +18,24 @@ body {
     font-family: 'Be Vietnam Pro', sans-serif;
 }
 
+#root {
+    height: 100%;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 h1, h2, h3, h4, h5, h6, p {
     color: var(--secondary-color);
+}
+
+a {
+    text-decoration: underline;
+    color: var(--secondary-color);
+    cursor: pointer;
 }
 
 button {

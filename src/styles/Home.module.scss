@@ -1,17 +1,10 @@
-body {
+.container {
     height: 100vh;
-}
-#root {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.App {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
 }
 .heading {
     font-size: 3rem;

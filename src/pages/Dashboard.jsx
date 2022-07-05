@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import '../styles/Dashboard.module.css'
+import styles from '../styles/Dashboard.module.scss'
 
 const Dashboard = () => {
 
@@ -71,26 +71,32 @@ const Dashboard = () => {
     return (
         <>
             <p className={"errmsg"} aria-live="assertive">{error}</p>
-            <div>Dashboard</div>
-            {currentUser && <p>Email: {currentUser.email}</p>}
-            <label htmlFor='newFormName'>Form Name</label>
-            <input type="text" className='newFormName' id='newFormName' value={newForm.formName} name='formName' onChange={(e) => handleNewFormDetails(e)} />
-            <label htmlFor="newFormDesc">Form Desc</label>
-            <input type="text" id='newFormDesc' className='newFormDesc' value={newForm.formDesc} name='formDesc' onChange={(e) => handleNewFormDetails(e)} />
-            <button onClick={handleNewForm} disabled={(newForm.formName !== '' && newForm.formDesc !== '') ? false : true}>Create a new form</button>
-            <button onClick={handleLogout}>Logout</button>
+            <section className={styles.header}>
+                <h2>Dashboard</h2>
+                <button onClick={handleLogout}>Logout</button>
+            </section>
+            {/* {currentUser && <p>Email: {currentUser.email}</p>} */}
+            <section className={styles.newFormSection}>
+                <input type="text" placeholder='Form Name' className='newFormName' id='newFormName' value={newForm.formName} name='formName' onChange={(e) => handleNewFormDetails(e)} />
+                <input type="text" placeholder='Form Description' id='newFormDesc' className='newFormDesc' value={newForm.formDesc} name='formDesc' onChange={(e) => handleNewFormDetails(e)} />
+                <button onClick={handleNewForm} disabled={(newForm.formName !== '' && newForm.formDesc !== '') ? false : true}>Create a new form</button>
+            </section>
 
-            <h1>Forms</h1>
-            {forms ? forms.map((form, index) => {
-                return (
-                    <div className='formCard' onClick={() => navigate(`/dashboard/form/${form._id}`)} key={index}>
-                        <p>{form.title}</p>
-                        <p>{form.desc}</p>
-                    </div>
-                )
-            }) : (
-                <p>No forms created</p>
-            )}
+            <section className={styles.allForms}>
+                <h1 className={styles.allFormsHeading}>All Forms</h1>
+                <div className={styles.forms}>
+                    {forms ? forms.map((form, index) => {
+                        return (
+                            <div className={styles.formCard} onClick={() => navigate(`/dashboard/form/${form._id}`)} key={index}>
+                                <p className={styles.formTitle}>{form.title}</p>
+                                <p className={styles.formDesc}>{form.desc}</p>
+                            </div>
+                        )
+                    }) : (
+                        <p>No forms created</p>
+                    )}
+                </div>
+            </section>
             
         </>
     )
