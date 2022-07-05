@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link, useParams } from 'react-router-dom'
 import { useAuth } from "../contexts/AuthContext";
 
-import '../styles/Questions.module.css'
+import styles from '../styles/Questions.module.scss'
 
 function Questions() {
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState("");
+    const { id } = useParams()
 
-    const [formId, setFormId] = useState("");
+    // const [formId, setFormId] = useState("");
 
     const navigate = useNavigate()
     const { logout } = useAuth()
@@ -28,12 +29,12 @@ function Questions() {
         }
     }
 
-    useEffect(() => {
-        let url_string = window.location.href;
-        let url = new URL(url_string);
-        let formId = url.searchParams.get("id");
-        setFormId(formId)
-    }, [])
+    // useEffect(() => {
+    //     let url_string = window.location.href;
+    //     let url = new URL(url_string);
+    //     let formId = url.searchParams.get("id");
+    //     setFormId(formId)
+    // }, [])
 
     const [question, setQuestion] = useState([{
         QuestionText: "Question",
@@ -68,7 +69,7 @@ function Questions() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    formId: formId,
+                    formId: id,
                     question: question[0]
                 })
             })
@@ -97,23 +98,29 @@ function Questions() {
 
     return (
         <>
-            <button onClick={handleLogout}>Logout</button>
             <section className="error">
                 <p className={err ? "errorMsg" : "successMsg"}>{err ? errMsg : success}
                 </p>
             </section>
-            <section className="questionArea">
+            <section className={styles.header}>
+                <h2><Link to='/dashboard'>Dashboard</Link>{` > Questions`}</h2>
+                <div className={styles.headerCta}>
+                    <Link to={`/dashboard/form/${id}`}>Go to form</Link>
+                    <button onClick={handleLogout}>Logout</button>
+                </div>
+            </section>
+            <section className={styles.questionArea}>
                 <h2>Add Question</h2>
                 {question.map((element, index) => {
                     return (
-                        <div key={index}>
-                            <div className='container'>
-                                <div className='question'>
-                                    <textarea value={element.QuestionText} rows="3" cols="35" onChange={(e) => { quesText(e.target.value, index) }} />
+                        <div key={index} className={styles.addquesContain}>
+                            <div className={`container ${styles.quesTextInputContain}`}>
+                                <div className={`question`}>
+                                    <textarea className={styles.inputQues} value={element.QuestionText} rows="3" cols="35" onChange={(e) => { quesText(e.target.value, index) }} />
                                 </div>
                             </div>
 
-                            <div className="selectType">
+                            <div className={`selectType ${styles.quesTypeContain}`}>
                                 <label htmlFor='type'>Select Type of Question :</label>
                                 <select name='question' onChange={(e) => { QuesType(e.target.value, index) }}>
                                     <option></option>
@@ -122,7 +129,7 @@ function Questions() {
                                     <option value="text">Single Line</option>
                                 </select>
                             </div>
-                            {element.type === "singleChoice" ? <div className='App'>
+                            {element.type === "singleChoice" ? <div className={styles.optionContain}>
                                 {element.hasOwnProperty('option') ?
                                     console.log("Already Excisting")
                                     : element.option = [{ OptionText: "Option 1" }]
@@ -130,7 +137,7 @@ function Questions() {
                                 {element.option.map((options, indexs) => {
                                     return (
                                         <>
-                                            <div className='options'>
+                                            <div className={`options ${styles.options}`}>
                                                 <input type="radio" value={element.option[indexs].OptionText} name={element.type} />
                                                 <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
                                             </div>
@@ -142,7 +149,7 @@ function Questions() {
                                 })}
                             </div> : null}
 
-                            {element.type === "multipleChoice" ? <div className='App'>
+                            {element.type === "multipleChoice" ? <div className={styles.optionContain}>
                                 {element.hasOwnProperty('option') ?
                                     console.log("Already Excisting")
                                     : element.option = [{ OptionText: "Option 1" }]
@@ -150,38 +157,37 @@ function Questions() {
                                 {element.option.map((options, indexs) => {
                                     return (
                                         <>
-                                            <div className='options' key={indexs}>
+                                            <div className={`options ${styles.options}`} key={indexs}>
                                                 <input type="checkbox" value={element.option[indexs].OptionText} name={element.type} />
                                                 <textarea value={element.option[indexs].OptionText} rows="1" cols="7" onChange={(e) => { optionText(e.target.value, index, indexs) }} />
                                             </div>
                                             {element.option.length - 1 === indexs ? <div className='addOption'>
-                                                <button onClick={() => { addOption(index) }}>Add Option</button>
+                                                <button className={styles.addOptionBtn} onClick={() => { addOption(index) }}>Add Option</button>
                                             </div> : null}
                                         </>
                                     )
                                 })}
                             </div> : null}
 
-                            {element.type === "text" ? <div className='App'>
+                            {element.type === "text" ? <div className={styles.optionContain}>
 
                                 {delete element.option}
 
-                                <div className='options'>
+                                <div className={`options ${styles.options}`}>
                                     <input type="text" placeholder="Enter Your Response" onChange={(e) => { setUserResponse(e.target.value, index) }} />
                                 </div>
 
 
                             </div> : null}
 
-                            {question.length - 1 === index ? <div className='addQuestion'>
-                                <button onClick={() => { addQues(index) }}>Add Question</button>
+                            {question.length - 1 === index ? <div className={`addQuestion ${styles.quesAddBtnContain}`}>
+                                <button className={styles.addQuesBtn} onClick={() => { addQues(index) }}>Add Question</button>
                             </div> : null}
                         </div>
                     )
                 })}
 
             </section>
-            <button onClick={() => {navigate(`/dashboard/form/${formId}`)}}>Go to Form</button>
         </>
     )
 }

@@ -51,7 +51,7 @@ const Dashboard = () => {
             return res.json()
         }).then((data) => {
             console.log(data)
-            navigate(`/newForm?id=${data.formId}`)
+            navigate(`/dashboard/form/addQues/${data.formId}`)
         }).catch((err) => {
             console.log(err)
         })

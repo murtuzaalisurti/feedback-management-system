@@ -116,7 +116,7 @@ const Form = () => {
                                             )
                                         })
                                     ) : (
-                                        <p>{'No questions'}</p>
+                                        <p>{`No questions!    `}<Link to={`/dashboard/form/addQues/${id}`}>Add questions</Link></p>
                                     )
                                 }</div>
                                 <div className={styles.deleteOrSubmitBtn}>
