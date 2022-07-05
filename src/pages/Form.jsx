@@ -13,7 +13,7 @@ const Form = () => {
     const [deleted, setDeleted] = useState(false)
 
     const navigate = useNavigate()
-    const { currentUser, logout } = useAuth()
+    const { logout } = useAuth()
 
 
     async function handleLogout() {

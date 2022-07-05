@@ -73,10 +73,17 @@
 
                     label {
                         color: var(--secondary-color);
+                        display: flex;
+                        align-items: center;
                     }
 
-                    input[type=checkbox], input[type=radio] {
+                    input[type=checkbox],
+                    input[type=radio] {
                         margin: 0 0.5rem 0 0;
+                        width: 1rem;
+                        height: 1rem;
+                        accent-color: rgb(223, 122, 122);
+                        color: rgb(223, 122, 122);
                     }
 
                     input[type=text] {
