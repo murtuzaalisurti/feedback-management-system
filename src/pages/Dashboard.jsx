@@ -38,7 +38,7 @@ const Dashboard = () => {
     }
 
     function handleNewForm() {
-        fetch('http://localhost:5000/addForm', {
+        fetch('https://feedsys-server.netlify.app/.netlify/functions/api/addForm', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        fetch('http://localhost:5000/allForms').then((res) => {
+        fetch('https://feedsys-server.netlify.app/.netlify/functions/api/allForms').then((res) => {
             return res.json()
         }).then((data) => {
             console.log(data.data)

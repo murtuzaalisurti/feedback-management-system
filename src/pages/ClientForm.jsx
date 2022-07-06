@@ -11,7 +11,7 @@ const ClientForm = () => {
     const [submitted, setSubmitted] = useState(false)
 
     useEffect(() => {
-        fetch('http://localhost:5000/getForm', {
+        fetch('https://feedsys-server.netlify.app/.netlify/functions/api/getForm', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ const ClientForm = () => {
             })
         })
 
-        fetch(`http://localhost:5000/addResponse`, {
+        fetch(`https://feedsys-server.netlify.app/.netlify/functions/api/addResponse`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

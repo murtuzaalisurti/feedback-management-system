@@ -63,7 +63,7 @@ function Questions() {
             setErr(true);
             setErrMsg("Please Fill All Required Fields");
         } else {
-            fetch(`http://localhost:5000/addQues`, {
+            fetch(`https://feedsys-server.netlify.app/.netlify/functions/api/addQues`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

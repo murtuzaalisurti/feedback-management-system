@@ -26,7 +26,7 @@ const Responses = () => {
     }
 
     function deleteForm() {
-        fetch(`http://localhost:5000/removeForm`, {
+        fetch(`https://feedsys-server.netlify.app/.netlify/functions/api/removeForm`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const Responses = () => {
     }
 
     useEffect(() => {
-        fetch('http://localhost:5000/getForm', {
+        fetch('https://feedsys-server.netlify.app/.netlify/functions/api/getForm', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
