@@ -70,6 +70,22 @@ const Form = () => {
         })
     }
 
+    function copyLink() {
+        let url = window.location.href;
+        const base_url_array = url.split('/').filter((string, index) => {
+            return (index < (url.split('/').length - 3)) ? true : false
+        })
+        const baseUrl = base_url_array.join("/")
+        const shareLink = `${baseUrl}/form/${id}`
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(shareLink).then(() => {
+            })
+        } else {
+            console.log('clipboard api is not available');
+        }
+    }
+
     return (
         <>
             {
@@ -121,6 +137,7 @@ const Form = () => {
                                 }</div>
                                 <div className={styles.deleteOrSubmitBtn}>
                                     <button onClick={() => deleteForm()}>Delete form</button>
+                                    <button disabled={formData.questions.length >= 1 ? false : true} onClick={copyLink}>Copy Link</button>
                                 </div>
                             </section>
                         </>

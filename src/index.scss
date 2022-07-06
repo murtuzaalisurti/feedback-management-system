@@ -45,4 +45,8 @@ button {
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 }

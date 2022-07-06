@@ -43,10 +43,11 @@ const ClientForm = () => {
                 resType: typeValue
             })
         }
-
-        document.querySelectorAll(`.${e.target.className} .questions .question .inputs`).forEach((field) => {
+        
+        document.querySelectorAll(`#${e.target.id} .questions .question .inputs`).forEach((field) => {
             const questionID = field.dataset.qid;
             const checkboxTexts = []
+
             document.querySelectorAll(`.input-${questionID} input`).forEach((input, index) => {
                 if (input.type === 'text') {
                     pushResponses(input.type, [input.value], questionID)
@@ -65,7 +66,6 @@ const ClientForm = () => {
                 }
             })
         })
-        console.log(responses)
 
         fetch(`http://localhost:5000/addResponse`, {
             method: 'POST',
@@ -91,22 +91,22 @@ const ClientForm = () => {
             {
                 !submitted ?
                     (loading ? 'loading' : (
-                        <form className={styles.formContent} onSubmit={(e) => handleSubmit(e)}>
+                        <form className={`formdata ${styles.formContent}`} id='formData' onSubmit={(e) => handleSubmit(e)}>
                             <div className={styles.formMetaData}>
-                                <h1 className={styles.formTitle}>
+                                <h1 className={`formTitle ${styles.formTitle}`}>
                                     {formData.title}
                                 </h1>
-                                <h2 className={styles.formDesc}>
+                                <h2 className={`formDesc ${styles.formDesc}`}>
                                     {formData.desc}
                                 </h2>
                             </div>
-                            <div className={styles.questions}>{
+                            <div className={`questions ${styles.questions}`}>{
                                 formData.questions.length >= 1 ? (
                                     formData.questions.map((question, index) => {
                                         return (
-                                            <div key={index} className={styles.question}>
-                                                <div className={styles.quesNumber}>Q:- {index + 1}</div>
-                                                <div className={styles.questionText}>
+                                            <div key={index} className={`question ${styles.question}`}>
+                                                <div className={`quesNumber ${styles.quesNumber}`}>Q:- {index + 1}</div>
+                                                <div className={`questionText ${styles.questionText}`}>
                                                     {question.QuestionText}
                                                 </div>
                                                 <div className={styles.inputContainer}>
