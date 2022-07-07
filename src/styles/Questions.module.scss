@@ -90,37 +90,44 @@
             }
         }
 
+        button {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
     }
 }
 
 
-.errorMsg {
-    background-color: lightpink;
-    color: firebrick;
-    font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-}
+// .errorMsg {
+//     background-color: lightpink;
+//     color: firebrick;
+//     font-weight: bold;
+//     padding: 0.5rem;
+//     margin-bottom: 0.5rem;
+// }
 
-.successMsg {
-    color: limegreen;
-    margin-left: 0.25rem;
-    background-color: rgb(196, 247, 191);
-    font-weight: bold;
-}
+// .successMsg {
+//     color: limegreen;
+//     margin-left: 0.25rem;
+//     background-color: rgb(196, 247, 191);
+//     font-weight: bold;
+// }
 
-.questionArea .container {
-    margin-top: 1rem;
-}
+// .questionArea .container {
+//     margin-top: 1rem;
+// }
 
-.questionArea .selectType {
-    margin-top: 1.25rem;
-}
+// .questionArea .selectType {
+//     margin-top: 1.25rem;
+// }
 
-.questionArea .selectType select {
-    width: fit-content;
-    margin-left: 0.5rem;
-}
+// .questionArea .selectType select {
+//     width: fit-content;
+//     margin-left: 0.5rem;
+// }
 
 // .questionArea button {
 //     margin-top: 0.75rem;

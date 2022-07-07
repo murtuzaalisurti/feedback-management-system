@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 
 import styles from '../styles/Form.module.scss'
+import { SpinnerDotted } from 'spinners-react'
 
 const Form = () => {
 
@@ -11,6 +12,7 @@ const Form = () => {
     const [formData, setFormData] = useState()
     const [loading, setLoading] = useState(true)
     const [deleted, setDeleted] = useState(false)
+    const [deleting, setDeleting] = useState(false)
 
     const navigate = useNavigate()
     const { logout } = useAuth()
@@ -48,6 +50,7 @@ const Form = () => {
     }, [formData])
 
     function deleteForm() {
+        setDeleting(true)
         fetch(`https://feedsys-server.netlify.app/.netlify/functions/api/removeForm`, {
             method: 'POST',
             headers: {
@@ -63,6 +66,7 @@ const Form = () => {
             if (data.err) {
                 console.log('deleting failed')
             } else {
+                setDeleting(false)
                 setDeleted(true)
             }
         }).catch((err) => {
@@ -90,7 +94,7 @@ const Form = () => {
         <>
             {
                 !deleted ? (
-                    loading ? 'loading' : (
+                    loading ? <div className={styles.loadingScreen}><SpinnerDotted size={37} thickness={150} speed={100} color="rgb(238, 244, 237)" /></div> : (
                         <>
                             <section className={styles.header}>
                                 <h2><Link to='/dashboard'>Dashboard</Link>{` > Form`}</h2>
@@ -136,14 +140,22 @@ const Form = () => {
                                     )
                                 }</div>
                                 <div className={styles.deleteOrSubmitBtn}>
-                                    <button onClick={() => deleteForm()}>Delete form</button>
+                                    <button onClick={() => deleteForm()} disabled={deleting ? true : false}>
+                                        Delete form
+                                        {
+                                            deleting ? <SpinnerDotted size={18} thickness={150} speed={100} color="rgb(0, 0, 0)" /> : ''
+                                        }
+                                    </button>
                                     <button disabled={formData.questions.length >= 1 ? false : true} onClick={copyLink}>Copy Link</button>
                                 </div>
                             </section>
                         </>
                     )
                 ) : (
-                    <div className={styles.formDeletedOrSubmittedMsg}>Form Successfully Deleted</div>
+                    <div className={styles.formDeletedOrSubmittedMsg}>
+                        <p>Form Successfully Deleted</p>
+                        <Link to='/dashboard'>Go to Dashboard</Link>
+                    </div>
                 )
             }
         </>

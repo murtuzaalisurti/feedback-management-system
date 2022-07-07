@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import styles from '../styles/Dashboard.module.scss'
 
+import { SpinnerDotted } from 'spinners-react'
+
 const Dashboard = () => {
 
     const [error, setError] = useState()
@@ -85,16 +87,25 @@ const Dashboard = () => {
             <section className={styles.allForms}>
                 <h1 className={styles.allFormsHeading}>All Forms</h1>
                 <div className={styles.forms}>
-                    {forms ? forms.map((form, index) => {
-                        return (
-                            <div className={styles.formCard} onClick={() => navigate(`/dashboard/form/${form._id}`)} key={index}>
-                                <p className={styles.formTitle}>{form.title}</p>
-                                <p className={styles.formDesc}>{form.desc}</p>
-                            </div>
+                    {
+                        forms ? (
+                            <>
+                                {forms.length >= 1 ? forms.map((form, index) => {
+                                    return (
+                                        <div className={styles.formCard} onClick={() => navigate(`/dashboard/form/${form._id}`)} key={index}>
+                                            <p className={styles.formTitle}>{form.title}</p>
+                                            <p className={styles.formDesc}>{form.desc}</p>
+                                        </div>
+                                    )
+                                }) : (
+                                    <p>No forms created</p>
+                                )}
+                            </>
+                        ) : (
+                            // <p>Loading</p>
+                            <SpinnerDotted size={37} thickness={150} speed={100} color="rgb(238, 244, 237)" />
                         )
-                    }) : (
-                        <p>No forms created</p>
-                    )}
+                    }
                 </div>
             </section>
             

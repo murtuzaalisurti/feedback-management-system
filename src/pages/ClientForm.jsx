@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styles from '../styles/ClientForm.module.scss'
+
+import { SpinnerDotted } from 'spinners-react/lib/esm/SpinnerDotted'
+
 const { nanoid } = require('nanoid')
 
 const ClientForm = () => {
@@ -9,6 +12,7 @@ const ClientForm = () => {
     const [formData, setFormData] = useState()
     const [loading, setLoading] = useState(true)
     const [submitted, setSubmitted] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
 
     useEffect(() => {
         fetch('https://feedsys-server.netlify.app/.netlify/functions/api/getForm', {
@@ -33,6 +37,8 @@ const ClientForm = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
+        setSubmitting(true)
+
         const responses = []
 
         function pushResponses(typeValue, textValue, qid) {
@@ -80,6 +86,7 @@ const ClientForm = () => {
             return res.json()
         }).then((data) => {
             console.log(data)
+            setSubmitting(false)
             setSubmitted(true)
         }).catch((err) => {
             console.log(err)
@@ -90,7 +97,7 @@ const ClientForm = () => {
         <>
             {
                 !submitted ?
-                    (loading ? 'loading' : (
+                    (loading ? <div className={styles.loadingScreen}><SpinnerDotted size={37} thickness={150} speed={100} color="rgb(238, 244, 237)" /></div> : (
                         <form className={`formdata ${styles.formContent}`} id='formData' onSubmit={(e) => handleSubmit(e)}>
                             <div className={styles.formMetaData}>
                                 <h1 className={`formTitle ${styles.formTitle}`}>
@@ -128,10 +135,15 @@ const ClientForm = () => {
                                 )
                             }</div>
 
-                            <button className={styles.deleteOrSubmitBtn}>Submit</button>
+                            <button className={styles.deleteOrSubmitBtn} disabled={submitting ? true : false}>
+                                Submit
+                                {
+                                    submitting ? <SpinnerDotted size={18} thickness={150} speed={100} color="rgb(0, 0, 0)" /> : ''
+                                }
+                            </button>
                         </form>
                     )) : (
-                        <div className={styles.formDeletedOrSubmittedMsg}>Your form has been successfully submitted! Thank You!</div>
+                        <p className={styles.formDeletedOrSubmittedMsg}>Your form has been successfully submitted! Thank You!</p>
                     )
             }
         </>

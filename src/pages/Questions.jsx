@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import React from "react";
 import { useNavigate, Link, useParams } from 'react-router-dom'
 import { useAuth } from "../contexts/AuthContext";
 
 import styles from '../styles/Questions.module.scss'
 
+import { SpinnerDotted } from 'spinners-react'
+
 function Questions() {
 
     const [err, setErr] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState("");
+    const [loading, setLoading] = useState(false)
     const { id } = useParams()
 
     // const [formId, setFormId] = useState("");
@@ -63,6 +66,7 @@ function Questions() {
             setErr(true);
             setErrMsg("Please Fill All Required Fields");
         } else {
+            setLoading(true)
             fetch(`https://feedsys-server.netlify.app/.netlify/functions/api/addQues`, {
                 method: 'POST',
                 headers: {
@@ -72,9 +76,13 @@ function Questions() {
                     formId: id,
                     question: question[0]
                 })
+            }).then((res) => {
+                return res.json()
+            }).then((data) => {
+                setErr(false);
+                setLoading(false)
+                setSuccess("Successfully Added");
             })
-            setErr(false);
-            setSuccess("Successfully Added");
         }
     }
 
@@ -98,10 +106,6 @@ function Questions() {
 
     return (
         <>
-            <section className="error">
-                <p className={err ? "errorMsg" : "successMsg"}>{err ? errMsg : success}
-                </p>
-            </section>
             <section className={styles.header}>
                 <h2><Link to='/dashboard'>Dashboard</Link>{` > Questions`}</h2>
                 <div className={styles.headerCta}>
@@ -181,12 +185,21 @@ function Questions() {
                             </div> : null}
 
                             {question.length - 1 === index ? <div className={`addQuestion ${styles.quesAddBtnContain}`}>
-                                <button className={styles.addQuesBtn} onClick={() => { addQues(index) }}>Add Question</button>
+                                <button className={styles.addQuesBtn} onClick={() => { addQues(index) }} disabled={loading ? true : false}>
+                                    Add question
+                                    {
+                                        loading ? <SpinnerDotted size={18} thickness={150} speed={100} color="rgb(0, 0, 0)" /> : ''
+                                    }
+                                </button>
                             </div> : null}
                         </div>
                     )
                 })}
 
+            </section>
+            <section className="error">
+                <p className={err ? "errorMsg" : "successMsg"}>{err ? errMsg : success}
+                </p>
             </section>
         </>
     )
