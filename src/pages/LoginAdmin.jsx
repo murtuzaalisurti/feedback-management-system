@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 import styles from '../styles/LoginAdmin.module.scss'
+import { SpinnerDotted } from 'spinners-react'
 
 const LoginAdmin = () => {
     const emailRef = useRef()
@@ -42,7 +43,7 @@ const LoginAdmin = () => {
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
                     <input
-                        type="text"
+                        type="email"
                         id="email"
                         ref={emailRef}
                         autoComplete="off"
@@ -60,7 +61,12 @@ const LoginAdmin = () => {
                         placeholder='Password'
                     />
 
-                    <button disabled={loading}>Log In</button>
+                    <button disabled={loading}>
+                        Log In
+                        {
+                            loading ? <SpinnerDotted size={18} thickness={150} speed={100} color="rgb(0, 0, 0)" /> : ''
+                        }
+                    </button>
                 </form>
                 <p className={styles['already-cta']}>
                     Not registered?
