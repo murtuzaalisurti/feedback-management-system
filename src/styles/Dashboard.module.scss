@@ -14,7 +14,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 0;
+    padding: 2rem 0 4rem 0;
     gap: 1rem;
     max-width: 25rem;
     width: 80%;
@@ -27,6 +27,13 @@
         border: none;
         outline: none;
         border-radius: 0.5rem;
+    }
+
+    .newFormBtn {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        align-items: center;
     }
 
     button:disabled {
@@ -52,6 +59,7 @@
     .forms {
         display: flex;
         flex-flow: row wrap;
+        justify-content: center;
         gap: 1rem;
         padding-top: 2rem;
 

@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import styles from '../styles/Questions.module.scss'
 
 import { SpinnerDotted } from 'spinners-react'
+import { MdKeyboardArrowLeft } from 'react-icons/md'
 
 function Questions() {
 
@@ -107,7 +108,12 @@ function Questions() {
     return (
         <>
             <section className={styles.header}>
-                <h2><Link to='/dashboard'>Dashboard</Link>{` > Questions`}</h2>
+                <div className={styles.headerTitle}>
+                    <h2>{`Questions`}</h2>
+                    <div className={styles.goToDashboard}>
+                        <Link to='/dashboard'><MdKeyboardArrowLeft />Dashboard</Link>
+                    </div>
+                </div>
                 <div className={styles.headerCta}>
                     <Link to={`/dashboard/form/${id}`}>Go to form</Link>
                     <button onClick={handleLogout}>Logout</button>

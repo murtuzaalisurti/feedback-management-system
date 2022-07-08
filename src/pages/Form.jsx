@@ -5,6 +5,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 
 import styles from '../styles/Form.module.scss'
 import { SpinnerDotted } from 'spinners-react'
+import { MdKeyboardArrowLeft } from 'react-icons/md'
 
 const Form = () => {
 
@@ -97,7 +98,12 @@ const Form = () => {
                     loading ? <div className={styles.loadingScreen}><SpinnerDotted size={37} thickness={150} speed={100} color="rgb(238, 244, 237)" /></div> : (
                         <>
                             <section className={styles.header}>
-                                <h2><Link to='/dashboard'>Dashboard</Link>{` > Form`}</h2>
+                                <div className={styles.headerTitle}>
+                                    <h2>{`Form`}</h2>
+                                    <div className={styles.goToDashboard}>
+                                        <Link to='/dashboard'><MdKeyboardArrowLeft />Dashboard</Link>
+                                    </div>
+                                </div>
                                 <div className={styles.headerCta}>
                                     <Link to={`/dashboard/form/responses/${id}`}>See responses</Link>
                                     <button onClick={handleLogout}>Logout</button>
