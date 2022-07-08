@@ -104,8 +104,8 @@ const Form = () => {
                                         <Link to='/dashboard'><MdKeyboardArrowLeft />Dashboard</Link>
                                     </div>
                                 </div>
-                                <div className={styles.headerCta}>
-                                    <Link to={`/dashboard/form/responses/${id}`}>See responses</Link>
+                                <div className={`${styles.headerCta}`}>
+                                    <Link className={`${styles.headerCtaLinkDesktop}`} to={`/dashboard/form/responses/${id}`}>See responses</Link>
                                     <button onClick={handleLogout}>Logout</button>
                                 </div>
                             </section>
@@ -153,6 +153,9 @@ const Form = () => {
                                         }
                                     </button>
                                     <button disabled={formData.questions.length >= 1 ? false : true} onClick={copyLink}>Copy Link</button>
+                                </div>
+                                <div className={`${styles.headerCtaLinkMobile}`}>
+                                    <Link to={`/dashboard/form/responses/${id}`}>See responses</Link>
                                 </div>
                             </section>
                         </>

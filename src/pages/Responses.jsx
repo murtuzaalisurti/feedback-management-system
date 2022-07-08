@@ -89,7 +89,7 @@ const Responses = () => {
                                     </div>
                                 </div>
                                 <div className={styles.headerCta}>
-                                    <Link to={`/dashboard/form/${id}`}>Go to form</Link>
+                                    <Link className={`${styles.headerCtaLinkDesktop}`} to={`/dashboard/form/${id}`}>Go to form</Link>
                                     <button onClick={handleLogout}>Logout</button>
                                 </div>
                             </section>
@@ -163,6 +163,9 @@ const Responses = () => {
                                             deleting ? <SpinnerDotted size={18} thickness={150} speed={100} color="rgb(0, 0, 0)" /> : ''
                                         }
                                     </button>
+                                </div>
+                                <div className={`${styles.headerCtaLinkMobile}`}>
+                                    <Link to={`/dashboard/form/${id}`}>Go to form</Link>
                                 </div>
                             </section>
                         </>

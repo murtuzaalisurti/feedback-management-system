@@ -40,6 +40,12 @@
         justify-content: center;
         align-items: center;
         gap: 1.5rem;
+
+        @media screen and (max-width: 30em) {
+            .headerCtaLinkDesktop {
+                display: none;
+            }
+        }
     }
 }
 
@@ -72,6 +78,7 @@
 
         .quesTypeContain {
             display: flex;
+            flex-flow: row wrap;
             gap: 1rem;
             margin-bottom: 1rem;
 
@@ -123,5 +130,17 @@
             align-items: center;
         }
 
+    }
+
+    .headerCtaLinkMobile {
+        display: none;
+        // padding-left: 1.5rem;
+        padding-top: 2rem;
+    }
+
+    @media screen and (max-width: 30em) {
+        .headerCtaLinkMobile {
+            display: initial;
+        }
     }
 }

@@ -40,13 +40,19 @@
         justify-content: center;
         align-items: center;
         gap: 1.5rem;
+
+        @media screen and (max-width: 30em) {
+            .headerCtaLinkDesktop {
+                display: none;
+            }
+        }
     }
 }
 
 .formContent {
     width: 100%;
     max-width: 40rem;
-    padding: 3rem 2rem;
+    padding: 3rem 0.5rem;
 
     .formMetaData {
         padding: 2rem 1.5rem;
@@ -141,12 +147,24 @@
     .deleteOrSubmitBtn {
         padding-left: 1.5rem;
         margin-top: 3rem;
+        margin-bottom: 2rem;
 
         button {
             display: flex;
             justify-content: center;
             gap: 0.5rem;
             align-items: center;
+        }
+    }
+
+    .headerCtaLinkMobile {
+        display: none;
+        padding-left: 1.5rem;
+    }
+
+    @media screen and (max-width: 30em) {
+        .headerCtaLinkMobile {
+            display: initial;
         }
     }
 }

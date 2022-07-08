@@ -115,7 +115,7 @@ function Questions() {
                     </div>
                 </div>
                 <div className={styles.headerCta}>
-                    <Link to={`/dashboard/form/${id}`}>Go to form</Link>
+                    <Link className={`${styles.headerCtaLinkDesktop}`} to={`/dashboard/form/${id}`}>Go to form</Link>
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             </section>
@@ -201,6 +201,9 @@ function Questions() {
                         </div>
                     )
                 })}
+                <div className={`${styles.headerCtaLinkMobile}`}>
+                    <Link to={`/dashboard/form/${id}`}>Go to form</Link>
+                </div>
 
             </section>
             <section className="error">
