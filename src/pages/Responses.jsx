@@ -42,7 +42,6 @@ const Responses = () => {
         }).then((res) => {
             return res.json()
         }).then((data) => {
-            console.log(data.data, data.err)
             if (data.err) {
                 console.log('deleting failed')
             } else {
@@ -66,7 +65,6 @@ const Responses = () => {
         }).then((res) => {
             return res.json()
         }).then((data) => {
-            console.log(data)
             setFormData(data.data)
         })
     }, [id])

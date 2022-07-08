@@ -19,7 +19,7 @@ const RegisterAdmin = () => {
         if(currentUser) {
             navigate('/dashboard')
         }
-    }, [])
+    })
 
     async function handleSubmit(e) {
         e.preventDefault();

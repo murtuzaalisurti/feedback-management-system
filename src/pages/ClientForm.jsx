@@ -26,7 +26,6 @@ const ClientForm = () => {
         }).then((res) => {
             return res.json()
         }).then((data) => {
-            console.log(data)
             setFormData(data.data)
         })
     }, [id])
@@ -85,7 +84,6 @@ const ClientForm = () => {
         }).then((res) => {
             return res.json()
         }).then((data) => {
-            console.log(data)
             setSubmitting(false)
             setSubmitted(true)
         }).catch((err) => {

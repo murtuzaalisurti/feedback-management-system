@@ -54,7 +54,6 @@ const Dashboard = () => {
         }).then((res) => {
             return res.json()
         }).then((data) => {
-            console.log(data)
             setCreatingForm(false)
             navigate(`/dashboard/form/addQues/${data.formId}`)
         }).catch((err) => {
@@ -67,7 +66,6 @@ const Dashboard = () => {
         fetch('https://feedsys-server.netlify.app/.netlify/functions/api/allForms').then((res) => {
             return res.json()
         }).then((data) => {
-            console.log(data.data)
             setForms(data.data)
         }).catch((err) => {
             console.log(err)
